@@ -4,9 +4,17 @@
       <div class="menu">
         <h1 class="title">아이유 참 좋다</h1>
         <ul>
-          <li><a href="">HOME</a></li>
-          <li><a href="">ABOUT</a></li>
-          <li><a href="">GALLERY</a></li>
+          <router-link to="/">
+            <li><a href="">HOME</a></li>
+          </router-link>
+
+          <router-link to="about">
+            <li><a href="">ABOUT</a></li>
+          </router-link>
+
+          <router-link to="gallery">
+            <li><a href="">GALLERY</a></li>
+          </router-link>
         </ul>
       </div>
     </nav>
@@ -15,27 +23,17 @@
       <!-- <div>슬라이드 테스트</div> -->
     </div>
 
-    <ul class="image-container">
-      <li class="imgs img1">
-        <p class="img-txt">손 틈새로</p>
-      </li>
-      <li class="imgs img2">
-        <p class="img-txt">비치는</p>
-      </li>
-      <li class="imgs img3">
-        <p class="img-txt">아이유</p>
-      </li>
-      <li class="imgs img4">
-        <p class="img-txt">참 좋다</p>
-      </li>
-    </ul>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
+// import AboutIu from './components/AboutIu.vue';
 export default {
   name: 'App',
-  components: {},
+  components: {
+    // AboutIu,
+  },
   data() {
     return {
       idx: 0,
@@ -46,35 +44,6 @@ export default {
       const target = e.target;
       target.classList.add('visible');
     },
-  },
-  mounted() {
-    const img = document.querySelectorAll('.imgs');
-    const imgtxt = document.querySelectorAll('.img-txt');
-    console.log(img);
-
-    setInterval(imgAnimation, 1000);
-    let i = 0;
-
-    function imgAnimation() {
-      if (i >= 1) {
-        if (i === img.length - 1) {
-          img[i].classList.remove('blackBg');
-          imgtxt[i].classList.remove('visible');
-        }
-        img[i - 1].classList.remove('blackBg');
-        imgtxt[i - 1].classList.remove('visible');
-      }
-
-      if (i >= img.length) {
-        i = 0;
-        return;
-      }
-
-      img[i].classList.add('blackBg');
-      imgtxt[i].classList.add('visible');
-
-      i++;
-    }
   },
 };
 </script>
