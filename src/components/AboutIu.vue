@@ -1,8 +1,7 @@
 <template>
   <div class="container">
-    <div class="bg">
-      <canvas>이 브라우저는 캔버스를 지원하지 않습니다.</canvas>
-    </div>
+    <canvas>이 브라우저는 캔버스를 지원하지 않습니다.</canvas>
+    <div class="bg"></div>
     <div class="profile-img-container">
       <!-- 프로필 이미지 -->
       <h2>Profile</h2>
@@ -63,21 +62,24 @@ export default {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     const ctx = canvas.getContext('2d');
-    const TOTAL = 10;
+    const TOTAL = 30;
     const petalArray = [];
 
     const lilacImg = new Image();
-    lilacImg.src = '../assets/lilac.png';
+    lilacImg.src = 'https://github.com/ReturnReason/iu/blob/main/src/assets/lilac.png?raw=true';
     lilacImg.onload = () => {
       for (let i = 0; i < TOTAL; i++) {
         petalArray.push(new Petal());
       }
-      console.log(petalArray);
       render();
     };
 
     function render() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      petalArray.forEach((petal) => {
+        petal.animate();
+      });
       window.requestAnimationFrame(render);
     }
 
@@ -90,12 +92,30 @@ export default {
 
     class Petal {
       constructor() {
-        this.x = 0;
-        this.y = 0;
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height * 2 - canvas.height;
+        this.w = 40 + Math.random() * 15;
+        this.h = 30 + Math.random() * 10;
+        this.opacity = this.w / 45;
+        this.xSpeed = 1 + Math.random();
+        this.ySpeed = 1 + Math.random();
       }
 
       draw() {
-        ctx.drawImage(lilacImg, this.x, this.y, 45, 30);
+        if (this.y > canvas.height || this.x > canvas.width) {
+          this.x = -lilacImg.width;
+          this.y = Math.random() * canvas.height * 2 - canvas.height;
+          this.xSpeed = 1 + Math.random();
+          this.ySpeed = 1 + Math.random();
+        }
+        ctx.globalAlpha = this.opacity;
+        ctx.drawImage(lilacImg, this.x, this.y, this.w, this.h);
+      }
+
+      animate() {
+        this.x += this.xSpeed;
+        this.y += this.ySpeed;
+        this.draw();
       }
     }
   },
@@ -103,12 +123,19 @@ export default {
 </script>
 
 <style>
+canvas {
+  z-index: -1;
+  background: transparent;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
 .container {
   max-width: 100%;
   min-height: 94.2vh;
   height: 100%;
   margin: 0 auto;
-  padding-top: 7%;
   position: relative;
   overflow: hidden;
 }
