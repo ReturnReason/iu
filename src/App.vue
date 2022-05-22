@@ -28,15 +28,14 @@
 </template>
 
 <script>
-// import AboutIu from './components/AboutIu.vue';
+import albumData from './album';
+
 export default {
   name: 'App',
-  components: {
-    // AboutIu,
-  },
+  components: {},
   data() {
     return {
-      idx: 0,
+      album: albumData,
     };
   },
   methods: {
@@ -50,7 +49,7 @@ export default {
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: NanumSquare, Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -74,7 +73,7 @@ li {
 }
 
 .menu-container {
-  background: #c9b2df;
+  background: #b584e3;
   padding: 20px;
   display: flex;
 }
@@ -86,10 +85,12 @@ li {
   align-items: center;
   gap: 10px;
   justify-content: space-between;
+  z-index: 5;
 }
 
 .menu .title {
   line-height: 0;
+  font-size: 18px;
   color: #fff;
 }
 

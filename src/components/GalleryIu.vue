@@ -7,11 +7,11 @@
 </template>
 
 <script>
+
 export default {
   name: 'GalleryIu',
   data() {
     return {
-      images: [],
     };
   },
   methods: {},
